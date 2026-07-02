@@ -6,7 +6,9 @@ The folder "RAG_enhanced_LLMs" has various versions of the RAG at various levels
 * v1 -- added the llama-prompt-guard transformer as a guardrail.
 * v2 -- added the custom transformer for suicide detection.
 * v3 -- added the redis session storage & some architectural improvements.
-* v4 -- added cryptographer for AES-GCM encryption/decryption of redis session storage & some architectural improvements. 
+* v4 -- added cryptographer for AES-GCM encryption/decryption of redis session storage & some architectural improvements.
+* v5 -- architectural changes (like object factory and registry), comments, class descriptions, more robust error handling. At least according to Gemini Flash, a highly production worthy project
+  (unfortunately, I don't have access to any professionals to help me judge that aren't busy).
 
 I'm keeping all the versions because depending on my needs (the tradeoff between security, utility, and speed), I may choose to adapt different versions of the RAG_enhanced_LLM. 
 
