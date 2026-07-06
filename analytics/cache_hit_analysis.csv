@@ -1,0 +1,16 @@
+Function Name,Calls,Total Time (s),Submodule
+<cell line: 0>,2,0.957409,/tmp/ipykernel_6727/3154459549.py
+Enhanced_RAG_v6.invoke,1,0.9562729999999999,/tmp/ipykernel_6727/845915262.py
+Pipeline_Guardrail.test,2,0.6212369999999999,/tmp/ipykernel_6727/2541832247.py
+Pipeline_Guardrail.test_input_logic,1,0.438418,/tmp/ipykernel_6727/1570466754.py
+Enhanced_RAG_v6.search_cache,1,0.334213,/tmp/ipykernel_6727/845915262.py
+Redis_Cache_Manager.search_prompt,1,0.3342,/tmp/ipykernel_6727/2035408845.py
+Transformer_Guardrail.test_input_logic,1,0.182771,/tmp/ipykernel_6727/1741514394.py
+<lambda>,1,0.004384,/usr/local/lib/python3.12/dist-packages/ipykernel/iostream.py
+IOPubThread._really_send,1,0.004358,/usr/local/lib/python3.12/dist-packages/ipykernel/iostream.py
+Enhanced_RAG_v6.verify_input_types,1,3.7999999999999995e-05,/tmp/ipykernel_6727/845915262.py
+IOPubThread._check_mp_mode,1,2.6e-05,/usr/local/lib/python3.12/dist-packages/ipykernel/iostream.py
+IOPubThread._is_master_process,1,1.7e-05,/usr/local/lib/python3.12/dist-packages/ipykernel/iostream.py
+IOPubThread._handle_event,1,6e-06,/usr/local/lib/python3.12/dist-packages/ipykernel/iostream.py
+IOPubThread.closed,1,1e-06,/usr/local/lib/python3.12/dist-packages/ipykernel/iostream.py
+<lambda>,1,1e-06,/usr/local/lib/python3.12/dist-packages/ipykernel/kernelbase.py

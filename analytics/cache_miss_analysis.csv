@@ -1,0 +1,23 @@
+Function Name,Calls,Total Time (s),Submodule
+<cell line: 0>,2,5.605417999999999,/tmp/ipykernel_6727/1948813075.py
+Enhanced_RAG_v6.invoke,1,5.601394,/tmp/ipykernel_6727/845915262.py
+Enhanced_RAG_v6.use_rag,1,4.562101999999999,/tmp/ipykernel_6727/845915262.py
+Pipeline_Guardrail.test,2,0.6453369999999999,/tmp/ipykernel_6727/2541832247.py
+<lambda>,1,0.5647449999999999,/tmp/ipykernel_6727/845915262.py
+Pipeline_Guardrail.test_input_logic,1,0.436336,/tmp/ipykernel_6727/1570466754.py
+Enhanced_RAG_v6.search_cache,1,0.39314299999999996,/tmp/ipykernel_6727/845915262.py
+Redis_Cache_Manager.search_prompt,1,0.393127,/tmp/ipykernel_6727/2035408845.py
+Transformer_Guardrail.test_input_logic,1,0.20894,/tmp/ipykernel_6727/1741514394.py
+IOPubThread._handle_event,1,0.000225,/usr/local/lib/python3.12/dist-packages/ipykernel/iostream.py
+<lambda>,1,0.000217,/usr/local/lib/python3.12/dist-packages/ipykernel/iostream.py
+IOPubThread._really_send,1,0.000206,/usr/local/lib/python3.12/dist-packages/ipykernel/iostream.py
+Kernel.schedule_dispatch,1,0.000116,/usr/local/lib/python3.12/dist-packages/ipykernel/kernelbase.py
+Enhanced_RAG_v6.verify_input_types,1,3.6e-05,/tmp/ipykernel_6727/845915262.py
+Enhanced_RAG_v6.format_docs,1,1.4999999999999999e-05,/tmp/ipykernel_6727/845915262.py
+IOPubThread._check_mp_mode,1,1.4e-05,/usr/local/lib/python3.12/dist-packages/ipykernel/iostream.py
+IOPubThread._is_master_process,1,9e-06,/usr/local/lib/python3.12/dist-packages/ipykernel/iostream.py
+<lambda>,2,2e-06,/usr/local/lib/python3.12/dist-packages/ipykernel/kernelbase.py
+IOPubThread.closed,1,1e-06,/usr/local/lib/python3.12/dist-packages/ipykernel/iostream.py
+<lambda>,1,1e-06,/tmp/ipykernel_6727/845915262.py
+<lambda>,1,1e-06,/tmp/ipykernel_6727/845915262.py
+<genexpr>,5,1e-06,/tmp/ipykernel_6727/845915262.py
