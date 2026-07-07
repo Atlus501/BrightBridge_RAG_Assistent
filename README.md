@@ -1,6 +1,11 @@
 # BrightBridge_RAG_Assistent
 This will be my first RAG project. The LLM will be one of OpenAI's and I'm going to use fine-tuned transformers to detect suspicious prompts
 
+General File Structure
+* analytics -- folder that contains sample analytics about the RAG agent's performance.
+* RAG_enhanced_LLMs -- folder that contains the various versions of notebooks used to prototype the RAGs.
+* fine_tuning -- folder that contains the notebook used for finetuning elements of the RAG.
+
 The folder "RAG_enhanced_LLMs" has various versions of the RAG at various levels of security/utility. All of the files end with vX (with X being the version number). Each version will be an iteration on the direct previous version (e.g., v3 will have all the improvements from v1 to v2). All versions will includes the embedder (since the embedders use most of the same dependencies and the dependencies take a while to load)
 * v0 -- the basic RAG. Mostly copied from the tutorial.
 * v1 -- added the llama-prompt-guard transformer as a guardrail.
