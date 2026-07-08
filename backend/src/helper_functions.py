@@ -4,6 +4,7 @@ from transformers import pipeline, AutoModelForSequenceClassification, AutoToken
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain_chroma import Chroma
 import json
+from pathlib import Path
 
 from src.cryptographer import Cryptographer
 from src.redis_manager import Redis_Manager
@@ -16,12 +17,12 @@ from src.enhanced_rag import Enhanced_RAG_v6
 Get guardrail configurations
 """
 def get_guardrail_configs():
-    path =  CURRENT_DIR = Path(__file__).resolve().parent
+    CURRENT_DIR = Path(__file__).resolve().parent
     guardrail_config_path = str(CURRENT_DIR / ".." / "registry_config" / "transformer_config.json")
     guardrail_config = None
     
     with open(guardrail_config_path, "r", encoding='utf-8') as file:
-        guardrail_config = json.loads(file)
+        guardrail_config = json.load(file)
 
     return guardrail_config
 

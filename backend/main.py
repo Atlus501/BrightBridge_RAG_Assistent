@@ -19,7 +19,7 @@ rag = setup_rag()
 context_manager = set_up_context_manager()
 
 #api used for responding to requests
-@app.get("/respond", status_code=status.HTTP_200_OK)
+@app.post("/respond", status_code=status.HTTP_200_OK)
 async def get_response(request_body : RAG_Request_Body, response : Response):
     try:
         rag_response, stored_string = await get_rag_response(request_body, rag)
@@ -52,7 +52,6 @@ async def post_past_context(request_body : Context_Request_Body, response : Resp
                                                      role="user",
                                                      request_body.session_id)
         response_body = {
-            "session_id" : request_body.session_id,
             "response" : "session successfully created/stored",
         }
         return response_body
@@ -66,13 +65,12 @@ async def post_past_context(request_body : Context_Request_Body, response : Resp
 
     except Exception as e:
         response_body = {
-            "session_id" : request_body.session_id,
             "response" : str(e),
         }
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return response_body
 
-@app.get("/get_past_context", status_code=status.HTTP_200_OK)
+@app.post("/get_past_context", status_code=status.HTTP_200_OK)
 async def get_past_context(request_body : Context_Request_Body, response : Response):
     try:
         decrypted_history, session_id = await context_manager.get_context(request_body.actor_id, 
@@ -93,7 +91,6 @@ async def get_past_context(request_body : Context_Request_Body, response : Respo
 
     except Exception as e:
         response_body = {
-            "session_id" : request_body.session_id,
             "past_convos" : [],
         }
         response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
