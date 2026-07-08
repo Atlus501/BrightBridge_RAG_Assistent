@@ -17,7 +17,7 @@ async def integration_test(prompt):
     }
 
     response = await test_prompt(session_token, prompt, rag)
-    return repsonse
+    return response
 
 if __name__ == "__main__":
     nest_asyncio.apply()
