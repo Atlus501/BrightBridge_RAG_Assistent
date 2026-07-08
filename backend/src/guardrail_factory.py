@@ -2,8 +2,8 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 import logging
 from pathlib import Path
 
-from transformer_guardrail import Transformer_Guardrail
-from pipeline_guardrail import Pipeline_Guardrail
+from src.transformer_guardrail import Transformer_Guardrail
+from src.pipeline_guardrail import Pipeline_Guardrail
 
 """
 Class for guardrail factory. How this factory works is that it provides a collection of
