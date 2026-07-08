@@ -1,0 +1,23 @@
+[
+    {
+        "name": "prompt_guardrail",
+
+        "factory_parameters" : {
+        "model_name": "meta-llama/Llama-Prompt-Guard-2-86M",
+        "desired_output": "LABEL_0",
+        "response" :
+            "Our system has detected a potential injection or jailbreak attack on the LLM. If this was a false alarm, please contact helloworld4846@gmail.com for feedback, and further tuning of the malicious system. In your message, please screenshot your prompt and the LLM response for reproducability. We apologize for any inconveniences caused, as this is still an experimental feature."
+        }
+
+    },
+    {
+        "name": "suicide_guardrail",
+
+        "factory_parameters" : {
+        "model_path": "transformer_config",
+        "desired_output": 0,
+        "response" :
+            "Our system has detected that you may have suicidal thoughts or tendencies. We at BrightBridge strongly discourages this. No matter what, you are loved, and will be missed when you are gone. Instead of self-harm, we highly recommend you seek therapy or contact us through helloworld4846@gmail.com for some advice instead. If this was a false alarm, please contact the same email for feedback for further tuning of the suicide detection system. We apologize for any inconveniences caused, as this is still an experimental feature."
+        }
+    }
+]

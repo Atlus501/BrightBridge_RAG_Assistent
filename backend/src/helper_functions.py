@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from transformers import pipeline, AutoModelForSequenceClassification, AutoTokenizer
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain_chroma import Chroma
+import json
 
 from src.cryptographer import Cryptographer
 from src.redis_manager import Redis_Manager
@@ -12,48 +13,17 @@ from src.redis_cache_manager import Redis_Cache_Manager
 from src.enhanced_rag import Enhanced_RAG_v6
 
 """
-Guardrail configurations
+Get guardrail configurations
 """
-GUARDRAIL_CONFIGS = [
-        {
-            "name": "prompt_guardrail",
+def get_guardrail_configs():
+    path =  CURRENT_DIR = Path(__file__).resolve().parent
+    guardrail_config_path = str(CURRENT_DIR / ".." / "registry_config" / "transformer_config.json")
+    guardrail_config = None
+    
+    with open(guardrail_config_path, "r", encoding='utf-8') as file:
+        guardrail_config = json.loads(file)
 
-            "factory_parameters" : {
-            "model_name": "meta-llama/Llama-Prompt-Guard-2-86M",
-            "desired_output": "LABEL_0",
-            "response" :
-                """Our system has detected a potential injection or jailbreak
-                    attack on the LLM. If this was a false alarm,
-                    please contact helloworld4846@gmail.com for feedback, and further
-                    tuning of the malicious system. In your message, please screenshot
-                    your prompt and the LLM response for reproducability.
-                    We apologize for any inconveniences caused, as this is still
-                    an experimental feature.
-                """,
-            }
-
-        },
-        {
-            "name": "suicide_guardrail",
-
-            "factory_parameters" : {
-            "model_path": "transformer_config",
-            "desired_output": 0,
-            "response" :
-                """
-                    Our system has detected that you may have suicidal thoughts
-                    or tendencies. We at BrightBridge strongly discourages this.
-                    No matter what, you are loved, and will be missed when you are
-                    gone. Instead of self-harm, we highly recommend you seek therapy
-                    or contact us through helloworld4846@gmail.com for some advice instead.
-                    If this was a false alarm, please contact the same email for
-                    feedback for further tuning of the suicide detection system.
-                    We apologize for any inconveniences caused, as this is still
-                    an experimental feature.
-                """
-            }
-        }
-    ]
+    return guardrail_config
 
 """
 Loads .env variables
@@ -86,13 +56,13 @@ def set_up_context_manager():
 
     return redis_manager
 
-
 """
 Sets up dependencies for the RAG via dependency injection
 """
 def setup_rag():
 
     guardrail_registry = setup_registry()
+    GUARDRAIL_CONFIGS = get_guardrail_configs()
 
     # Instantiate guardrails from the config using the registry
     guardrails = []
