@@ -1,7 +1,7 @@
 import logging
 import torch
 
-from src.guardrail import Guardrail
+from src.guardrails.guardrail import Guardrail
 
 """
 Class for guardrails that uses transformers and tokenizers instead of pipelines.

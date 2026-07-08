@@ -2,7 +2,8 @@ import asyncio
 import nest_asyncio
 import logging
 
-from src.helper_functions import load_dotenv, setup_rag, test_prompt
+from data_objects.request_body import RAG_Request_Body
+from src.helper_functions import load_dotenv, setup_rag, get_rag_response
 
 async def integration_test(prompt):
     load_dotenv()
@@ -16,7 +17,7 @@ async def integration_test(prompt):
         "past_conv" : [],
     }
 
-    response = await test_prompt(session_token, prompt, rag)
+    response = await get_rag_response(session_token : RAG_Request_Body, rag)
     return response
 
 if __name__ == "__main__":

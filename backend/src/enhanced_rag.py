@@ -3,7 +3,7 @@ import logging
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-from src.guardrail import Guardrail
+from src.guardrails.guardrail import Guardrail
 
 """
 Class for the RAG. This is the class where all dependencies should be injected and flow to.
@@ -80,15 +80,10 @@ class Enhanced_RAG_v6:
   """
   Verifies input types for invoke
   """
-  def verify_input_types(self, prompt, actor_id, password, past_conv):
+  def verify_input_types(self, prompt, past_conv):
     #type checking each output to ensure predictable outputs
     if not isinstance(prompt, str):
       raise TypeError(f"Please input the prompt as a string: {prompt}")
-    if not isinstance(actor_id, str):
-      raise TypeError(f"Please input the actor_id as a string: {actor_id}")
-    if not isinstance(password, str):
-      raise TypeError(f"Please input the password as a string: {password}")
-
     for conv in past_conv:
       if not isinstance(conv, str):
         raise TypeError(f"Please input the past_conv as a list of strings: {conv}")
@@ -106,10 +101,10 @@ class Enhanced_RAG_v6:
   Then, verifies the prompt using the asynchronous guardrails. Just processes the output
   through the guardrails and then passing it to the RAG.
   """
-  async def invoke(self, prompt: str, actor_id: str, password: str, past_conv = []):
+  async def invoke(self, prompt: str, past_conv = []):
     try:
       #code for handling malicious prompts and inputs
-      self.verify_input_types(prompt, actor_id, password, past_conv)
+      self.verify_input_types(prompt, past_conv)
 
       #activates tests for each guardrail asynchronously and the guardrails will
       #raise exceptions if they find anything wrong

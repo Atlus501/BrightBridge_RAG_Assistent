@@ -6,8 +6,8 @@ from langchain_chroma import Chroma
 
 from src.cryptographer import Cryptographer
 from src.redis_manager import Redis_Manager
-from src.guardrail_registry import Guardrail_Registry
-from src.guardrail_factory import Guardrail_Factory
+from src.guardrails.guardrail_registry import Guardrail_Registry
+from src.guardrails.guardrail_factory import Guardrail_Factory
 from src.redis_cache_manager import Redis_Cache_Manager
 from src.enhanced_rag import Enhanced_RAG_v6
 
@@ -76,13 +76,21 @@ def setup_registry():
     return guardrail_registry
 
 """
-Sets up dependencies for the RAG via dependency injection
+Sets up the context manager
 """
-def setup_rag():
+def set_up_context_manager():
     cryptographer = Cryptographer()
 
     #creating the redis manager
     redis_manager = Redis_Manager(num_recent_messages=3, cryptographer=cryptographer)
+
+    return redis_manager
+
+
+"""
+Sets up dependencies for the RAG via dependency injection
+"""
+def setup_rag():
 
     guardrail_registry = setup_registry()
 
@@ -148,12 +156,10 @@ def setup_rag():
     return rag
 
 #workflow of the user
-async def test_prompt(session_token, prompt, rag):
-  response = await rag.invoke(prompt,
-                                          session_token['test_actor_id'],
-                                          session_token['password'],
-                                          session_token['past_conv'])
+async def get_rag_response(response_body, rag):
 
-  stored_string = f"User: {prompt[:128]}...\n Assistant: {response[:128]}...\n"
-  session_token['past_conv'].append(stored_string)
-  return response
+    response = await rag.invoke(response_body.prompt,
+                                session_token.past_conv)
+
+    stored_string = f"User: {prompt[:128]}...\n Assistant: {response[:128]}...\n"
+    return response, stored_string
