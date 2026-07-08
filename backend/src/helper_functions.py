@@ -156,10 +156,10 @@ def setup_rag():
     return rag
 
 #workflow of the user
-async def get_rag_response(response_body, rag):
+async def get_rag_response(request_body, rag):
 
-    response = await rag.invoke(response_body.prompt,
-                                session_token.past_conv)
+    response = await rag.invoke(request_body.prompt,
+                                request_body.past_conv)
 
-    stored_string = f"User: {prompt[:128]}...\n Assistant: {response[:128]}...\n"
+    stored_string = f"User: {request_body.prompt[:128]}...\n Assistant: {response[:128]}...\n"
     return response, stored_string

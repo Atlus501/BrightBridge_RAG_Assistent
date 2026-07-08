@@ -9,15 +9,12 @@ async def integration_test(prompt):
     load_dotenv()
     rag = setup_rag()
 
-    session_token = {
-        "session_id" : None,
-        "password" : "sldfkjpoaf6asdfjshf5",
-        "test_actor_id" : "test123",
-        "SameSite" : "Strict",
-        "past_conv" : [],
-    }
+    request_token = RAG_Request_Body(
+        past_conv = [],
+        prompt = prompt
+    )
 
-    response = await get_rag_response(session_token : RAG_Request_Body, rag)
+    response = await get_rag_response(request_token, rag)
     return response
 
 if __name__ == "__main__":

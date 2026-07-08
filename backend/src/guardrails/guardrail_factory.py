@@ -61,7 +61,7 @@ class Guardrail_Factory:
       # The model and tokenizer types are fixed for this type of guardrail, but the path is configurable
       if model_path is not None:
         CURRENT_DIR = Path(__file__).resolve().parent
-        model_path = str(CURRENT_DIR / ".." / model_path)
+        model_path = str(CURRENT_DIR / ".." / ".." / model_path)
         guardrail.upload_model(AutoModelForSequenceClassification, AutoTokenizer, model_path)
       return guardrail
 
