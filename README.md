@@ -43,7 +43,7 @@ Explaination of Enhanced RAG Components
   * data_objects -- pydantic object for request_objects for fastapi
   * registry_config -- configuration files for object registry
   * src -- python scripts for services and their dependencies
-   * guardrails -- python files for guardrails 
+    * guardrails -- python files for guardrails 
   * tests -- notebooks and python files used to test the backend
   * transformer_config -- configuration files for the custom, fine-tuned transformers
 * fine_tuning -- notebooks used for finetuning elements of the RAG
