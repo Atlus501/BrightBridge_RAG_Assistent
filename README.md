@@ -53,13 +53,21 @@ The .env file for this project should include the following:
 * GEMINI_API
 * HUGGING_SECRET
 
+### Prerequesites for running the backend
+* Redis Langcache and Agent Memory instance and all of its relevant information for the .env file.
+* Gemini api key
+* Chromadb instance and all of its relevant information for the .env file
+* Hugging face secrets
+* ngrok account and auth token
+* your own configuration files for the transformer (because my models.safetensors file is too big for github) or change it to use a pipeline instead
+
 ### Instructions for running the backend
-If one is running the backend version of this project, I'd recommend the following steps:
 1. clone the repository and change directory to backend
 2. use venv to create a virtual python environment.
 3. use pip install -r requirements.txt
 4. use the hugging face secret to authenticate using hf auth login --token "{hugging_secret}"
 5. python -m main
-6. in another terminal, use ngrok http 8080
+6. in another terminal, use ngrok config add-authtoken $YOUR_AUTHTOKEN
+7. then use, use ngrok http 8080
 
 After following these steps, the fastapi backend should be active. I haven't made a frontent for this project, so the main method of communication would be to use the notebook in /backend/tests to communicate with the backend. 
