@@ -4,7 +4,7 @@ This will be my first RAG project. The LLM will be one of OpenAI's and I'm going
 ### Architectural Choices
 The below image is a high level view of the architecure.
 <img width="797" height="470" alt="image" src="https://github.com/user-attachments/assets/2f8d6aa4-dbaf-4196-a25c-d403aba3e54d" />
-* the overall system is seperated into two microservices:
+* the overall system is seperated into two services:
  * the naive RAG system that has been enhanced by adding Redis Langcache and transformer guardrails.
  * the user context manager that retrieves user conversation snippets from Redis Agent Memory.
 
@@ -23,7 +23,7 @@ Explaination of Enhanced RAG Components
 ### General user workflow
 1. Default session token is generated (if there wasn't one present). That information includes, a securely generated password, actor_id, session_id = None, and past_conv = [].
 2. If a valid session_id is present, the background service retrieves information from Redis Agent Memory based on the information in session token and decrypts the conversational context. 
-3. User enters a prompt and sends it to the RAG microservice. If present, past conversational context will also be sent to the RAG.
+3. User enters a prompt and sends it to the RAG service. If present, past conversational context will also be sent to the RAG.
 4. Depending on if the guardrails were triggered, a cache hit in langcache occured, or if appropriate context was found in the ChromaDB instance, a response will be returned (with varying levels of latency.
 5. Both the user prompt and response will be shortened and appended to the past_conv part of the session token/context. 
 6. A background async function will save the last conversation to the Redis Agent Memory instance. (Also encrypts the conversation for user protection). Depending on how it's configured, it could save the messages every once in a while or mass saves them every x times the assistant responds.  
