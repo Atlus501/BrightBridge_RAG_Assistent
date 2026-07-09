@@ -58,4 +58,4 @@ class Transformer_Guardrail(Guardrail):
 
     except Exception as e:
       self.logger.error(f"An unexpected error occurred while testing the input: {str(e)}")
-      raise RuntimeError(f"An unexpected error occurred while testing the input: {str(e)}") from e
+      raise RuntimeError(f"An unexpected error occurred while testing the input") from e

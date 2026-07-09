@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Response, status
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import ValidationError
 import logging
 import uvicorn
@@ -9,6 +10,17 @@ from src.helper_functions import load_env, setup_rag, set_up_context_manager, ge
 
 #sets up fastapi and logging configurations
 app = FastAPI()
+allowed_origins = [
+    "http://localhost:8000", # If you also test locally
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,           # Allowed domains list
+    allow_credentials=True,          # Permit cookies / auth headers
+    allow_methods=["*"],             # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],             # Allow all custom HTTP headers
+)
+
 logging.basicConfig(level=logging.WARNING, filename="brightbridge.log", format='%(asctime)s - %(levelname)s - %(message)s')
 
 #loads the environmental variables
@@ -50,17 +62,19 @@ async def get_response(request_body : RAG_Request_Body, response : Response):
 async def post_past_context(request_body : Context_Request_Body, response : Response):
     try:
         res = await context_manager.save_context(request_body.actor_id,
-                                                 request_body.past_conv,
+                                                 request_body.conv_to_be_saved,
+                                                 request_body.password,
                                                  role="user",
                                                  session_id=request_body.session_id)
         response_body = {
             "response" : "session successfully created/stored",
+            "session_id" : res,
         }
         return response_body
 
     except ValidationError:
         response_body = {
-            "response" : "please use use the proper data fields"
+            "response" : "please use use the proper data fields",
         }
         response.status_code = status.HTTP_400_BAD_REQUEST
         return response_body
@@ -75,12 +89,11 @@ async def post_past_context(request_body : Context_Request_Body, response : Resp
 @app.post("/get_past_context", status_code=status.HTTP_200_OK)
 async def get_past_context(request_body : Context_Request_Body, response : Response):
     try:
-        decrypted_history, session_id = await context_manager.get_context(request_body.actor_id, 
-                                                request_body.password, 
-                                                request_body.session_id)
+        decrypted_history, _ = await context_manager.get_context(request_body.actor_id, 
+                                                                          request_body.password, 
+                                                                          request_body.session_id)
         response_body = {
             "past_convs" : decrypted_history,
-            "session_id" : session_id,
         }
         return response_body
 

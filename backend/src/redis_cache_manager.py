@@ -33,7 +33,7 @@ class Redis_Cache_Manager:
 
     except Exception as e:
       self.logger.error(f"An unexpected error occurred while inserting the prompt: {str(e)}")
-      raise RuntimeError(f"An unexpected error occurred while inserting the prompt: {str(e)}") from e
+      raise RuntimeError(f"An unexpected error occurred while inserting the prompt") from e
 
   """
   Delete FAQ from database
@@ -50,7 +50,7 @@ class Redis_Cache_Manager:
 
     except Exception as e:
       self.logger.error(f"An unexpected error occurred while deleting the prompt: {str(e)}")
-      raise RuntimeError(f"An unexpected error occurred while deleting the prompt: {str(e)}") from e
+      raise RuntimeError(f"An unexpected error occurred while deleting the prompt") from e
 
   """
   Searches the database for reponses to FAQs using vectoized searches.
@@ -68,7 +68,7 @@ class Redis_Cache_Manager:
             return res
     except Exception as e:
       self.logger.error(f"An unexpected error occurred while searching the prompt: {str(e)}")
-      raise RuntimeError(f"An unexpected error occurred while searching the prompt. {str(e)}") from e
+      raise RuntimeError(f"An unexpected error occurred while searching the prompt") from e
 
   """
   Prints out self keys

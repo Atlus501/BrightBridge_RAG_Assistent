@@ -123,7 +123,7 @@ class Redis_Manager:
       # it might mean the session_id is invalid or expired.
       # In this case, treat it as if no context was found for that session_id.
       self.logger.error(f"An unexpected error occurred during message retrieval for session {session_id}: {str(e)}", exc_info=True)
-      raise RuntimeError(f"Failed to retrieve session memory: {str(e)}") from e
+      raise RuntimeError(f"Failed to retrieve session memory") from e
 
   """
   Gets the context from the database
@@ -157,5 +157,8 @@ class Redis_Manager:
   Saves the context to the database
   """
   async def save_context(self, actor_id, message, password, role="user", session_id=None):
+    if isinstance(message, list):
+      message = '/n'.join(message)
+
     encrypted_string = self.encrypt_message(password, message)
     return await self.post_session_memory(actor_id, encrypted_string, role, session_id=session_id)

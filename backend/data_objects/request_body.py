@@ -9,4 +9,4 @@ class Context_Request_Body(BaseModel):
     session_id: str | None
     password: str
     actor_id: str
-    past_conv: list[str]
+    conv_to_be_saved: list[str] | str

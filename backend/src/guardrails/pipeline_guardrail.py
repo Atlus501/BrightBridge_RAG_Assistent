@@ -45,4 +45,4 @@ class Pipeline_Guardrail(Guardrail):
       return guard_test[0]['label'] != self.desired_output
     except Exception as e:
       self.logger.error(f"An unexpected error occurred while testing the input: {str(e)}")
-      raise RuntimeError(f"An unexpected error occurred while testing the input: {str(e)}") from e
+      raise RuntimeError("An unexpected error occurred while testing the input") from e
