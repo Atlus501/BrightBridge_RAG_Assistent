@@ -1,7 +1,11 @@
-# BrightBridge_RAG_Assistent
+#BrightBridge_RAG_Assistent
 This will be my first RAG project. The LLM will be one of OpenAI's and I'm going to use fine-tuned transformers to detect suspicious prompts
 
-General File Structure
+###Architectural Choices
+<img width="797" height="470" alt="image" src="https://github.com/user-attachments/assets/2f8d6aa4-dbaf-4196-a25c-d403aba3e54d" />
+
+
+###General File Structure
 * analytics -- folder that contains sample analytics about the RAG agent's performance.
 * RAG_enhanced_LLMs -- folder that contains the various versions of notebooks used to prototype the RAGs. All of them are a direct iteration from the previous file. 
   * v0 -- the basic RAG. Mostly copied from the tutorial.
@@ -16,6 +20,7 @@ General File Structure
 * backend -- folder that contains the python code for the deployable, fastapi version of the backend
   * tests -- folder that contains the notebook and python files used to test the backend
 
+###Env file structure
 The .env file for this project should include the following:
 * REDIS_CACHE_API
 * REDIS_LANGCACHE_URL
@@ -28,6 +33,7 @@ The .env file for this project should include the following:
 * GEMINI_API
 * HUGGING_SECRET
 
+###Instructions for running the backend
 If one is running the backend version of this project, I'd recommend the following steps:
 1. clone the repository and change directory to backend
 2. use venv to create a virtual python environment.
