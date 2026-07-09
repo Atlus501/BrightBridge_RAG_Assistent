@@ -28,9 +28,8 @@ Explaination of Enhanced RAG Components
 5. Both the user prompt and response will be shortened and appended to the past_conv part of the session token/context. 
 6. A background async function will save the last conversation to the Redis Agent Memory instance. (Also encrypts the conversation for user protection). Depending on how it's configured, it could save the messages every once in a while or mass saves them every x times the assistant responds.  
 
-### General file structure 
-* analytics -- folder that contains sample analytics about the RAG agent's performance.
-* RAG_enhanced_LLMs -- folder that contains the various versions of notebooks used to prototype the RAGs. All of them are a direct iteration from the previous file. 
+### General directory structure (folders only)
+* RAG_enhanced_LLMs -- various versions of notebooks used to prototype the RAGs. All of them are a direct iteration from the previous file. 
   * v0 -- the basic RAG. Mostly copied from the tutorial.
   * v1 -- added the llama-prompt-guard transformer as a guardrail.
   * v2 -- added the custom transformer for suicide detection.
@@ -39,9 +38,15 @@ Explaination of Enhanced RAG Components
   * v5 -- architectural changes (like object factory and registry), comments, class descriptions, more robust error handling. At least according to Gemini Flash, a highly production worthy project
     (unfortunately, I don't have access to any professionals to help me judge that aren't busy).
   * v6 -- major architecural adjustments (seperate RAG and context retrieval into two services). Adds redis langcache to quickly retrieve FAQs. Highly scalable and production ready
-* fine_tuning -- folder that contains the notebook used for finetuning elements of the RAG.
-* backend -- folder that contains the python code for the deployable, fastapi version of the backend
-  * tests -- folder that contains the notebook and python files used to test the backend
+* analytics -- contains sample analytics about the RAG agent's performance.
+* backend -- contains the python code for the deployable, fastapi version of the backend
+  * data_objects -- pydantic object for request_objects for fastapi
+  * registry_config -- configuration files for object registry
+  * src -- python scripts for services and their dependencies
+   * guardrails -- python files for guardrails 
+  * tests -- notebooks and python files used to test the backend
+  * transformer_config -- configuration files for the custom, fine-tuned transformers
+* fine_tuning -- notebooks used for finetuning elements of the RAG
 
 ### Env file structure
 The .env file for this project should include the following:
