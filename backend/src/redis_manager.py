@@ -59,6 +59,9 @@ class Redis_Manager:
     #setting the message role
     message_role = models.MessageRole.USER if role == "user" else models.MessageRole.ASSISTANT
 
+    if isinstance(message, list):
+      message = '/n'.join(message)
+
     #api call for saving the session
     try:
       async with AgentMemory(self.endpoint, store_id=self.store_id, api_key=self.api_key) as agent_memory:

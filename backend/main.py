@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Response, status
 from pydantic import ValidationError
 import logging
+import uvicorn
+import os
 
 from data_objects.request_body import RAG_Request_Body, Context_Request_Body
 from src.helper_functions import load_env, setup_rag, set_up_context_manager, get_rag_response
@@ -48,9 +50,9 @@ async def get_response(request_body : RAG_Request_Body, response : Response):
 async def post_past_context(request_body : Context_Request_Body, response : Response):
     try:
         res = await context_manager.save_context(request_body.actor_id,
-                                                     request_body.past_conv[-1],
-                                                     role="user",
-                                                     request_body.session_id)
+                                                 request_body.past_conv,
+                                                 role="user",
+                                                 session_id=request_body.session_id)
         response_body = {
             "response" : "session successfully created/stored",
         }
@@ -95,3 +97,9 @@ async def get_past_context(request_body : Context_Request_Body, response : Respo
         }
         response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
         return response_body 
+
+#the code that will trigger if is it is set to be the main code
+if __name__ == "__main__":
+    SERVER_IP = os.getenv("SERVER_IP")
+    SERVER_PORT = int(os.getenv("SERVER_PORT"))
+    uvicorn.run("main:app", host=SERVER_IP, port=SERVER_PORT, reload=True)

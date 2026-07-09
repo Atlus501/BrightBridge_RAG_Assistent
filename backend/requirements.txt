@@ -12,3 +12,4 @@ langcache
 nest_asyncio
 fastapi[standard]
 pydantic
+uvicorn
