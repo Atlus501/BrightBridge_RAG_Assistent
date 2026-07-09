@@ -8,13 +8,24 @@ The below image is a high level view of the architecure.
  * the naive RAG system that has been enhanced by adding Redis Langcache and transformer guardrails.
  * the user context manager that retrieves user conversation snippets from Redis Agent Memory.
 
-Explanation of User Context Manager 
+Explanation of User Context Manager Components
  * Redis Agent Memory -- a good Redis Cloud service for storing and retrieving user session information. Having this information on hand could enhance the LLM's response by providing additional context. An optimization is that only small portions of the user's conversations would be stored at a time. Storing too much data could lead to latency and diminishing returns on the benefits of the context. To balance utility and privacy, the session memories would only have a ttl of one day. 
  *  Cryptographer -- a class responsible for encrypting/decrypting conversation snippets using AES-GCM. Due to the senstive nature of the stored data, it is imperative that they are properly secured. If I just retrieve session information through session_ids, then that would lead to a Broken Object Level Authorization, where attackers could brute force session_ids until they find valid ones. The solution to that is encrypting user data with a password. In that case, the attacker would need to guess both a valid session_id and password, which is much more unlikely. The reason why I picked AES-GCM is that it's the industry standard for symmetrical encryption. 
 
+Explaination of Components
+* 
+
 * When the FastAPI backend initially starts, all dependencies will be created and injected into these service classes. 
 
-### General File Structure
+### General user workflow
+1. Default session token is generated (if there wasn't one present). That information includes, a securely generated password, actor_id, session_id = None, and past_conv = [].
+2. If a valid session_id is present, the background service retrieves information from Redis Agent Memory based on the information in session token and decrypts the conversational context. 
+3. User enters a prompt and sends it to the RAG microservice. If present, past conversational context will also be sent to the RAG.
+4. Depending on if the guardrails were triggered, a cache hit in langcache occured, or if appropriate context was found in the ChromaDB instance, a response will be returned (with varying levels of latency.
+5. Both the user prompt and response will be shortened and appended to the past_conv part of the session token/context. 
+6. A background async function will save the last conversation to the Redis Agent Memory instance. (Also encrypts the conversation for user protection). Depending on how it's configured, it could save the messages every once in a while or mass saves them every x times the assistant responds.  
+
+### General file structure 
 * analytics -- folder that contains sample analytics about the RAG agent's performance.
 * RAG_enhanced_LLMs -- folder that contains the various versions of notebooks used to prototype the RAGs. All of them are a direct iteration from the previous file. 
   * v0 -- the basic RAG. Mostly copied from the tutorial.
@@ -29,7 +40,7 @@ Explanation of User Context Manager
 * backend -- folder that contains the python code for the deployable, fastapi version of the backend
   * tests -- folder that contains the notebook and python files used to test the backend
 
-###Env file structure
+### Env file structure
 The .env file for this project should include the following:
 * REDIS_CACHE_API
 * REDIS_LANGCACHE_URL
@@ -42,7 +53,7 @@ The .env file for this project should include the following:
 * GEMINI_API
 * HUGGING_SECRET
 
-###Instructions for running the backend
+### Instructions for running the backend
 If one is running the backend version of this project, I'd recommend the following steps:
 1. clone the repository and change directory to backend
 2. use venv to create a virtual python environment.
