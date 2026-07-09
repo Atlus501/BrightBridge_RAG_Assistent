@@ -1,5 +1,5 @@
 # BrightBridge_RAG_Assistent
-This will be my first RAG project. The LLM will be one of OpenAI's and I'm going to use fine-tuned transformers to detect suspicious prompts
+This will be my first RAG project. The LLM will be one of OpenAI's and I'm going to use fine-tuned transformers to detect suspicious prompts. This will be a 100% python project. The reason that I used a lot of notebooks is bc/ I prefer to prototype with google colab (especially with GPUs to help me train models). Naturally, the production level code will be pure python scripts though.
 
 ### Architectural Choices
 The below image is a high level view of the architecure.
