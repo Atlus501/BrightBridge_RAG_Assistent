@@ -39,13 +39,18 @@ Explaination of Enhanced RAG Components
     (unfortunately, I don't have access to any professionals to help me judge that aren't busy).
   * v6 -- major architecural adjustments (seperate RAG and context retrieval into two services). Adds redis langcache to quickly retrieve FAQs. Highly scalable and production ready
 * analytics -- contains sample analytics about the RAG agent's performance.
-* backend -- contains the python code for the deployable, fastapi version of the backend
-  * data_objects -- pydantic object for request_objects for fastapi
-  * registry_config -- configuration files for object registry
-  * src -- python scripts for services and their dependencies
+* backend -- python code for the deployable, fastapi version of the backend
+  * api -- assets for the api (routers & schemas)
+   * routes -- routers used for backend
+   * schemas -- pydantic data schemas used for responses and requests
+  * config -- configuration files for theregistr and transformer
+   * registry_config -- configuration files for object registry
+   * transformer_config -- configuration files for the custom, fine-tuned transformers
+  * infrastructure -- infrastructure logic code
+   * databases -- classes that interace with databases
+  *  services -- python scripts for services and their dependencies
     * guardrails -- python files for guardrails 
   * tests -- notebooks and python files used to test the backend
-  * transformer_config -- configuration files for the custom, fine-tuned transformers
 * fine_tuning -- notebooks used for finetuning elements of the RAG
 
 ### Env file structure
@@ -63,6 +68,7 @@ The .env file for this project should include the following:
 
 ### Prerequesites for running the backend
 * Redis Langcache and Agent Memory instance and all of its relevant information for the .env file.
+ * make sure the langcache isn't empty
 * Gemini api key
 * Chromadb instance and all of its relevant information for the .env file
 * Hugging face secrets
