@@ -48,7 +48,7 @@ Explaination of Enhanced RAG Components
     * transformer_config -- configuration files for the custom, fine-tuned transformers
   * infrastructure -- infrastructure logic code
     * databases -- classes that interace with databases
-  *  services -- python scripts for services and their dependencies
+  *  services -- python scripts for business logic services
     * guardrails -- python files for guardrails 
   * tests -- notebooks and python files used to test the backend
 * fine_tuning -- notebooks used for finetuning elements of the RAG
