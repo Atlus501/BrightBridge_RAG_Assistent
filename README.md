@@ -41,13 +41,13 @@ Explaination of Enhanced RAG Components
 * analytics -- contains sample analytics about the RAG agent's performance.
 * backend -- python code for the deployable, fastapi version of the backend
   * api -- assets for the api (routers & schemas)
-   * routes -- routers used for backend
-   * schemas -- pydantic data schemas used for responses and requests
+    * routes -- routers used for backend
+    * schemas -- pydantic data schemas used for responses and requests
   * config -- configuration files for theregistr and transformer
-   * registry_config -- configuration files for object registry
-   * transformer_config -- configuration files for the custom, fine-tuned transformers
+    * registry_config -- configuration files for object registry
+    * transformer_config -- configuration files for the custom, fine-tuned transformers
   * infrastructure -- infrastructure logic code
-   * databases -- classes that interace with databases
+    * databases -- classes that interace with databases
   *  services -- python scripts for services and their dependencies
     * guardrails -- python files for guardrails 
   * tests -- notebooks and python files used to test the backend
