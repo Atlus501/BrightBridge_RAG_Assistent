@@ -147,7 +147,7 @@ class Redis_Manager:
             self.logger.error(f"Decryption failed due to authentication tag mismatch or invalid data: {e}")
             raise ValueError("Decryption failed due to authentication tag mismatch or invalid data.") from e
 
-        return decrypted_history_parts, retrieved_session_id
+        return decrypted_history_parts
 
     except Exception as e:
       self.logger.error(f"An unexpected error occurred while getting the context: {str(e)}")

@@ -18,7 +18,7 @@ Get guardrail configurations
 """
 def get_guardrail_configs():
     CURRENT_DIR = Path(__file__).resolve().parent
-    guardrail_config_path = str(CURRENT_DIR / ".." / "registry_config" / "transformer_config.json")
+    guardrail_config_path = str(CURRENT_DIR / ".." / "core" / "registry_config" / "transformer_config.json")
     guardrail_config = None
     
     with open(guardrail_config_path, "r", encoding='utf-8') as file:
