@@ -3,7 +3,7 @@ import logging
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-from src.guardrails.guardrail import Guardrail
+from services.guardrails.guardrail import Guardrail
 
 """
 Class for the RAG. This is the class where all dependencies should be injected and flow to.

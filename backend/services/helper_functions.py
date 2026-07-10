@@ -6,19 +6,20 @@ from langchain_chroma import Chroma
 import json
 from pathlib import Path
 
-from src.cryptographer import Cryptographer
-from src.redis_manager import Redis_Manager
-from src.guardrails.guardrail_registry import Guardrail_Registry
-from src.guardrails.guardrail_factory import Guardrail_Factory
-from src.redis_cache_manager import Redis_Cache_Manager
-from src.enhanced_rag import Enhanced_RAG_v6
+from infrastructure.cryptographer import Cryptographer
+from infrastructure.databases.redis_manager import Redis_Manager
+from infrastructure.databases.redis_cache_manager import Redis_Cache_Manager
+
+from services.guardrails.guardrail_registry import Guardrail_Registry
+from services.guardrails.guardrail_factory import Guardrail_Factory
+from services.enhanced_rag import Enhanced_RAG_v6
 
 """
 Get guardrail configurations
 """
 def get_guardrail_configs():
     CURRENT_DIR = Path(__file__).resolve().parent
-    guardrail_config_path = str(CURRENT_DIR / ".." / "core" / "registry_config" / "transformer_config.json")
+    guardrail_config_path = str(CURRENT_DIR / ".." / "config" / "registry_config" / "transformer_config.json")
     guardrail_config = None
     
     with open(guardrail_config_path, "r", encoding='utf-8') as file:

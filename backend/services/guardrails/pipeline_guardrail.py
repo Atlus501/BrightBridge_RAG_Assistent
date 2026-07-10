@@ -1,7 +1,7 @@
 from transformers import pipeline
 import logging
 
-from src.guardrails.guardrail import Guardrail
+from services.guardrails.guardrail import Guardrail
 
 """
 The guardrail subclass that uses pipelines intead of transformers. Currently used for

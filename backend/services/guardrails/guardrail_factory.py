@@ -2,8 +2,8 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 import logging
 from pathlib import Path
 
-from src.guardrails.transformer_guardrail import Transformer_Guardrail
-from src.guardrails.pipeline_guardrail import Pipeline_Guardrail
+from services.guardrails.transformer_guardrail import Transformer_Guardrail
+from services.guardrails.pipeline_guardrail import Pipeline_Guardrail
 
 """
 Class for guardrail factory. How this factory works is that it provides a collection of
@@ -61,7 +61,7 @@ class Guardrail_Factory:
       # The model and tokenizer types are fixed for this type of guardrail, but the path is configurable
       if model_path is not None:
         CURRENT_DIR = Path(__file__).resolve().parent
-        model_path = str(CURRENT_DIR / ".." / ".." / "core" / model_path)
+        model_path = str(CURRENT_DIR / ".." / ".." / "config" / model_path)
         guardrail.upload_model(AutoModelForSequenceClassification, AutoTokenizer, model_path)
       return guardrail
 

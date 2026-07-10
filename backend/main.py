@@ -6,8 +6,8 @@ import logging
 import uvicorn
 import os
 
-from core.data_objects.request_body import RAG_Request_Body, Context_Request_Body
-from src.helper_functions import load_env, setup_rag, set_up_context_manager, get_rag_response
+from api.schema.request_body import RAG_Request_Body, Context_Request_Body
+from services.helper_functions import load_env, setup_rag, set_up_context_manager, get_rag_response
 
 allowed_origins = [
     "http://localhost:8000", # If you also test locally

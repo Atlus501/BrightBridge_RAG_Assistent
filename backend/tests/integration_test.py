@@ -2,8 +2,8 @@ import asyncio
 import nest_asyncio
 import logging
 
-from core.data_objects.request_body import RAG_Request_Body
-from src.helper_functions import load_dotenv, setup_rag, get_rag_response
+from api.schemas.request_body import RAG_Request_Body
+from services.helper_functions import load_dotenv, setup_rag, get_rag_response
 
 async def integration_test(prompt):
     load_dotenv()
