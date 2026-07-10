@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status
+from fastapi import FastAPI, APIRouter, status
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import logging
@@ -42,6 +42,9 @@ app.add_middleware(
     allow_headers=["*"],             # Allow all custom HTTP headers
 )
 
+app.include_router(rag_router, prefix="/rag", tags=["RAG"])
+app.include_router(context_router, prefix="/context", tags=["Context Manager"])
+
 """
 Function that initially welcomes the user as the are connected to the endpoint.
 """
@@ -54,9 +57,6 @@ async def respond():
 
 #the code that will trigger if is it is set to be the main code
 if __name__ == "__main__":
-    app.include_router(rag_router, prefix="/rag")
-    app.include_router(context_router, prefix="/context")
-
     load_env()
     SERVER_IP = os.getenv("SERVER_IP")
     SERVER_PORT = int(os.getenv("SERVER_PORT"))
