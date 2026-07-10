@@ -1,6 +1,6 @@
 import requests
 
-endpoints = ["/respond", "/store_past_context", "/get_past_context"]
+endpoints = ["/rag/respond", "/context/store", "/context/retrieve"]
 payloads = [
     {
         "past_conv": [],
@@ -38,4 +38,3 @@ r = test_server_endpoint(endpoints[1], payloads[1])
 payloads[1]['session_id'] = r.json()['session_id']
 
 r = test_server_endpoint(endpoints[2], payloads[1])
-
