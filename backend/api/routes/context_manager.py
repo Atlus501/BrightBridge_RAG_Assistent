@@ -1,4 +1,5 @@
 import logging
+import random
 
 from fastapi import APIRouter, Response, Request, status
 from pydantic import ValidationError
@@ -58,8 +59,11 @@ async def get_past_context(request_body : Context_Request_Body, request : Reques
         return response_body
 
     except Exception as e:
+        poisoned_response = random.randint(1000, 6000)
+        poisoned_response = hex(poisoned_response)
+
         response_body = {
-            "past_convos" : [],
+            "past_convos" : [poisoned_response],
         }
         response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
         return response_body 

@@ -15,10 +15,15 @@ async def get_response(request_body : RAG_Request_Body, request: Request, respon
         rag = request.app.state.rag
 
         rag_response, stored_string = await get_rag_response(request_body, rag)
+
+        table = rag_response.maketrans({"<": "_", ">": "_"})
+        rag_response = rag_response.translate(table)
+
         response_body = {
             "response" : rag_response,
             "stored_string" : stored_string,
         }
+
         return response_body
 
     except ValidationError as e:
