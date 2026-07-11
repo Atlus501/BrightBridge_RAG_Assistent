@@ -29,7 +29,7 @@ Explaination of Enhanced RAG Components
 6. A background async function will save the last conversation to the Redis Agent Memory instance. (Also encrypts the conversation for user protection). Depending on how it's configured, it could save the messages every once in a while or mass saves them every x times the assistant responds.  
 
 ### General directory structure (folders only)
-* RAG_enhanced_LLMs -- various versions of notebooks used to prototype the RAGs. All of them are a direct iteration from the previous file. 
+* prototypes -- various versions of notebooks used to prototype the RAGs. All of them are a direct iteration from the previous file. 
   * v0 -- the basic RAG. Mostly copied from the tutorial.
   * v1 -- added the llama-prompt-guard transformer as a guardrail.
   * v2 -- added the custom transformer for suicide detection.
@@ -49,9 +49,11 @@ Explaination of Enhanced RAG Components
   * infrastructure -- infrastructure logic code
     * databases -- classes that interace with databases
   *  services -- python scripts for business logic services
-    * guardrails -- python files for guardrails 
+     * rag -- business logic related to the RAG
+       * guardrails -- python files for guardrails
+     * context_manager -- business logic related to the context manager
   * tests -- notebooks and python files used to test the backend
-* fine_tuning -- notebooks used for finetuning elements of the RAG
+* fine_tuning -- notebooks used for finetuning elements and testing of the RAG
 
 ### Env file structure
 The .env file for this project should include the following:
