@@ -3,7 +3,7 @@ import nest_asyncio
 import logging
 
 from api.schemas.request_body import RAG_Request_Body
-from services.helper_functions import load_dotenv, setup_rag, get_rag_response
+from services.rag.setup import load_dotenv, setup_rag
 
 async def integration_test(prompt):
     load_dotenv()
@@ -14,7 +14,7 @@ async def integration_test(prompt):
         prompt = prompt
     )
 
-    response = await get_rag_response(request_token, rag)
+    response = await rag.invoke(request_token.prompt, request_token.past_conv)
     return response
 
 if __name__ == "__main__":
