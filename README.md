@@ -49,9 +49,9 @@ Explaination of Enhanced RAG Components
   * infrastructure -- infrastructure logic code
     * databases -- classes that interace with databases
   *  services -- python scripts for business logic services
-    * rag -- business logic related to the RAG
-      * guardrails -- python files for guardrails
-    * context_manager -- business logic related to the context manager
+     * rag -- business logic related to the RAG
+       * guardrails -- python files for guardrails
+     * context_manager -- business logic related to the context manager
   * tests -- notebooks and python files used to test the backend
 * fine_tuning -- notebooks used for finetuning elements and testing of the RAG
 
