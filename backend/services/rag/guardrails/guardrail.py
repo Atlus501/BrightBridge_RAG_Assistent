@@ -20,17 +20,17 @@ class Guardrail:
     self.logger = logging.getLogger(__name__)
 
   """
-  Intentionally customized asynchronous test_input function that tests user prompts.
+  Intentionally customized test_input function that tests user prompts.
   """
-  async def test_input_logic(self, prompt: str) -> bool:
+  def test_input_logic(self, prompt: str) -> bool:
     return False
 
   """
   Asyncrhonous function that is going to inherited in all subclasses. This function
   will be called whenever the RAG wants the guardrail to test a prompt.
   """
-  async def test(self, prompt: str) -> None:
-    positive_test = await self.test_input_logic(prompt)
+  def test(self, prompt: str) -> None:
+    positive_test = self.test_input_logic(prompt)
     if positive_test:
       self.logger.error(f"The user has submitted a problmatic input: {prompt}")
       raise ValueError(self.response)

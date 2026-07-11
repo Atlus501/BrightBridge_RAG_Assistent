@@ -1,7 +1,7 @@
 from transformers import pipeline
 import logging
 
-from services.guardrails.guardrail import Guardrail
+from services.rag.guardrails.guardrail import Guardrail
 
 """
 The guardrail subclass that uses pipelines intead of transformers. Currently used for
@@ -39,7 +39,7 @@ class Pipeline_Guardrail(Guardrail):
   (Desired output being the non-problematic result). If the output is problematic,
   it will return true and later trigger an error.
   """
-  async def test_input_logic(self, prompt: str) -> bool:
+  def test_input_logic(self, prompt: str) -> bool:
     try:
       guard_test = self.pipeline(prompt)
       return guard_test[0]['label'] != self.desired_output

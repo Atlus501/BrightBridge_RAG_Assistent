@@ -6,32 +6,30 @@ from langchain_chroma import Chroma
 import json
 from pathlib import Path
 
-from infrastructure.cryptographer import Cryptographer
-from infrastructure.databases.redis_manager import Redis_Manager
+from services.rag.guardrails.guardrail_registry import Guardrail_Registry
+from services.rag.guardrails.guardrail_factory import Guardrail_Factory
+from services.rag.enhanced_rag import Enhanced_RAG_v6
+
 from infrastructure.databases.redis_cache_manager import Redis_Cache_Manager
-
-from services.guardrails.guardrail_registry import Guardrail_Registry
-from services.guardrails.guardrail_factory import Guardrail_Factory
-from services.enhanced_rag import Enhanced_RAG_v6
-
-"""
-Get guardrail configurations
-"""
-def get_guardrail_configs():
-    CURRENT_DIR = Path(__file__).resolve().parent
-    guardrail_config_path = str(CURRENT_DIR / ".." / "config" / "registry_config" / "transformer_config.json")
-    guardrail_config = None
-    
-    with open(guardrail_config_path, "r", encoding='utf-8') as file:
-        guardrail_config = json.load(file)
-
-    return guardrail_config
 
 """
 Loads .env variables
 """
 def load_env():
     load_dotenv()
+
+"""
+Get guardrail configurations
+"""
+def get_guardrail_configs():
+    CURRENT_DIR = Path(__file__).resolve().parent
+    guardrail_config_path = str(CURRENT_DIR / ".." / ".." / "config" / "registry_config" / "transformer_config.json")
+    guardrail_config = None
+    
+    with open(guardrail_config_path, "r", encoding='utf-8') as file:
+        guardrail_config = json.load(file)
+
+    return guardrail_config
 
 """
 Sets up the registry
@@ -46,17 +44,6 @@ def setup_registry():
     guardrail_registry.register_guardrail_creator("suicide_guardrail", guardrail_factory.create_suicide_guardrail)
 
     return guardrail_registry
-
-"""
-Sets up the context manager
-"""
-def set_up_context_manager():
-    cryptographer = Cryptographer()
-
-    #creating the redis manager
-    redis_manager = Redis_Manager(num_recent_messages=3, cryptographer=cryptographer)
-
-    return redis_manager
 
 """
 Sets up dependencies for the RAG via dependency injection
@@ -126,12 +113,3 @@ def setup_rag():
     rag.set_cache(cache)
 
     return rag
-
-#workflow of the user
-async def get_rag_response(request_body, rag):
-
-    response = await rag.invoke(request_body.prompt,
-                                request_body.past_conv)
-
-    stored_string = f"User: {request_body.prompt[:128]}...\n Assistant: {response[:128]}...\n"
-    return response, stored_string

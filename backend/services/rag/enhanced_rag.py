@@ -3,7 +3,7 @@ import logging
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-from services.guardrails.guardrail import Guardrail
+from services.rag.guardrails.guardrail import Guardrail
 
 """
 Class for the RAG. This is the class where all dependencies should be injected and flow to.
@@ -78,17 +78,6 @@ class Enhanced_RAG_v6:
       return "\n\n".join(doc.page_content for doc in docs)
 
   """
-  Verifies input types for invoke
-  """
-  def verify_input_types(self, prompt, past_conv):
-    #type checking each output to ensure predictable outputs
-    if not isinstance(prompt, str):
-      raise TypeError(f"Please input the prompt as a string: {prompt}")
-    for conv in past_conv:
-      if not isinstance(conv, str):
-        raise TypeError(f"Please input the past_conv as a list of strings: {conv}")
-
-  """
   Function for invoking the RAG.
   Params: prompt, actor_id, password, past_conv
   Returns: response
@@ -103,14 +92,10 @@ class Enhanced_RAG_v6:
   """
   async def invoke(self, prompt: str, past_conv = []):
     try:
-      #code for handling malicious prompts and inputs
-      self.verify_input_types(prompt, past_conv)
-
       #activates tests for each guardrail asynchronously and the guardrails will
       #raise exceptions if they find anything wrong
-      async with asyncio.TaskGroup() as tg:
-        for guardrail in self.guardrails:
-            task = tg.create_task(guardrail.test(prompt))
+      for guardrail in self.guardrails:
+          guardrail.test(prompt)
 
       #searches the cache for a response to the prompt
       cache_response = await self.search_cache(prompt)

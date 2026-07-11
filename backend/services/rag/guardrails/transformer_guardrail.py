@@ -1,7 +1,7 @@
 import logging
 import torch
 
-from services.guardrails.guardrail import Guardrail
+from services.rag.guardrails.guardrail import Guardrail
 
 """
 Class for guardrails that uses transformers and tokenizers instead of pipelines.
@@ -47,7 +47,7 @@ class Transformer_Guardrail(Guardrail):
   if the transformer finds the prompt problematic. If the output is problematic,
   it will return true and later trigger an error.
   """
-  async def test_input_logic(self, prompt: str) -> bool:
+  def test_input_logic(self, prompt: str) -> bool:
     try:
       tokenize_prompt = self.tokenizer(prompt, padding=True, truncation=True, return_tensors="pt")
       self.model.eval()

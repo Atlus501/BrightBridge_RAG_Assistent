@@ -3,7 +3,6 @@ import logging
 from fastapi import APIRouter, Response, Request, status
 from pydantic import ValidationError
 
-from services.helper_functions import get_rag_response
 from api.schemas.request_body import RAG_Request_Body
 
 router = APIRouter()
@@ -14,9 +13,12 @@ async def get_response(request_body : RAG_Request_Body, request: Request, respon
     try:
         rag = request.app.state.rag
 
-        rag_response, stored_string = await get_rag_response(request_body, rag)
+        rag_response = await rag.invoke(request_body.prompt,
+                                        request_body.past_conv)
 
         table = rag_response.maketrans({"<": "_", ">": "_"})
+
+        stored_string = f"User: {request_body.prompt[:128]}...\n Assistant: {response[:128]}...\n"
         rag_response = rag_response.translate(table)
 
         response_body = {

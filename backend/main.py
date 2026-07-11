@@ -8,7 +8,8 @@ import os
 from api.routes.context_manager import router as context_router
 from api.routes.rag import router as rag_router
 
-from services.helper_functions import load_env, setup_rag, set_up_context_manager
+from services.rag.setup import load_env, setup_rag
+from services.context_manager.setup import set_up_context_manager
 
 allowed_origins = [
     "http://localhost:8000", # If you also test locally
